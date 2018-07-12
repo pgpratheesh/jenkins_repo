@@ -1,4 +1,4 @@
-Title
+
 #!/usr/bin/env groovy
  
 pipeline {
@@ -39,9 +39,17 @@ options {
             
         }
 post {
-        always {
-            echo "RESULT: ${currentBuild.currentResult}"
+        success {
+            script {
+                currentBuild.result = 'SUCCESS'
+            }
+            echo "Build Success !!! "
         }
-        
-    }
-    } 
+ failure {
+       script {
+                currentBuild.result = 'FAILURE'
+          }
+         echo " Build Error !!! "
+     }
+     }
+}
