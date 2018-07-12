@@ -1,4 +1,3 @@
-Title
 #!/usr/bin/env groovy
  
 pipeline {
@@ -22,7 +21,7 @@ options {
                        doGenerateSubmoduleConfigurations: false, 
                        extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '']], 
                        submoduleCfg: [], 
-                       userRemoteConfigs: [[url: 'https://github.com/pgpratheesh/jenkins_repo.git']]])
+                       userRemoteConfigs: [[url: 'https://github.com/pgprat9heesh/jenkins_repo.git']]])
             }
         }
         stage('Execute the shell script') {
