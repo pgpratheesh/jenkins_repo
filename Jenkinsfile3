@@ -74,20 +74,7 @@ options {
     
             
         }
-post {
- 	success {
- 	script {
- 	currentBuild.result = 'SUCCESS'
- 	}
- 	echo "Build Success!!!"
- 	}
- 	failure {
- 	script {
- 	currentBuild.result = 'FAILURE'
- 	}
- 	echo " Build failed !!!"
- 	}
- 	}
+
 
 
 post {
