@@ -42,13 +42,13 @@ post {
             script {
                 currentBuild.result = 'SUCCESS'
             }
-            echo "Congratulations !!! You got the code working !!"
+            echo "Build Success!"
         }
  failure {
        script {
                 currentBuild.result = 'FAILURE'
           }
-         echo " Error !!! Please recheck your code and config"
+         echo " Error !!! Buid Failed"
      }
      }
 }
