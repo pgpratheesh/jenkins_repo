@@ -1,0 +1,54 @@
+#!/usr/bin/env groovy
+ 
+pipeline {
+    agent any
+options {
+    buildDiscarder(logRotator(numToKeepStr: '3'))
+  }
+    stages {
+        stage('Checkout scm to a different directory inside workspace') {
+            steps {
+                
+                checkoutToSubdirectory('/var/lib/jenkins/workspace/pg_ansible5/tmp/')
+                
+            }
+        }
+            stage('Checkout the scripts from GIT scm') {
+            steps {
+                echo 'Deploying....'
+             checkout([$class: 'GitSCM', 
+                       branches: [[name: '*/master']], 
+                       doGenerateSubmoduleConfigurations: false, 
+                       extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '']], 
+                       submoduleCfg: [], 
+                       userRemoteConfigs: [[url: 'https://github.com/pgpratheesh/jenkins_repo.git']]])
+            }
+        }
+        stage('Execute the shell script') {
+            steps {
+                  sh "./line.sh line.sh"
+            }
+        }  
+        stage('Archive the files') {
+            steps {
+                archive  "line.sh"
+            }
+        }
+    
+            
+        }
+post {
+        success {
+            script {
+                currentBuild.result = 'SUCCESS'
+            }
+            echo "Congratulations !!! You got the code working !!"
+        }
+ failure {
+       script {
+                currentBuild.result = 'FAILURE'
+          }
+         echo " Error !!! Please recheck your code and config"
+     }
+     }
+}
