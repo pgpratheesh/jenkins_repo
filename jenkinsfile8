@@ -39,7 +39,7 @@ options {
       
           
         
-post {
+        post {
         always {
        echo "RESULT: ${currentBuild.currentResult}"
     }
