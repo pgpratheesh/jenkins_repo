@@ -1,37 +1,21 @@
-#!/usr/bin/env groovy
-
 pipeline {
     agent any
-	
-options {
-    buildDiscarder(logRotator(numToKeepStr: '3'))
-  }
-    stages {
-        stage('Checkout scm to a different directory inside workspace') {
-            steps {
-                
-                checkout scm
-                
-            }
-        }
 
     stages {
-        stage('Run syntax check for playbook') {
+        stage('Build') {
             steps {
-			
-                sh  "ansible-playbook 111.yml --syntax-check"
+                echo 'Building..'
             }
         }
-        stage('Dry Run playbook') {
+        stage('Test') {
             steps {
-                sh  "ansible-playbook 111.yml --check "
+                echo 'Testing..'
             }
         }
-        stage('Run playbook') {
+        stage('Deploy') {
             steps {
-                sh  "ansible-playbook 111.yml "
+                echo 'Deploying....'
             }
         }
-    }
     }
 }
