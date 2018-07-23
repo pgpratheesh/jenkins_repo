@@ -36,11 +36,7 @@ options {
             
            
    }
-      
-          
- 
-  
-         
+               
 post {
         success {
             script {
