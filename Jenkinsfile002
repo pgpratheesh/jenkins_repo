@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+	
+options {
+    buildDiscarder(logRotator(numToKeepStr: '3'))
+  }
+    stages {
+        stage('Checkout scm to a different directory inside workspace') {
+            steps {
+                
+                checkout scm
+                
+            }
+        }
+
+    stages {
+        stage('Run syntax check for playbook') {
+            steps {
+			
+                sh  "ansible-playbook 111.yml --syntax-check"
+            }
+        }
+        stage('Dry Run playbook') {
+            steps {
+                sh  "ansible-playbook 111.yml --check "
+            }
+        }
+        stage('Run playbook') {
+            steps {
+                sh  "ansible-playbook 111.yml "
+            }
+        }
+    }
+}
