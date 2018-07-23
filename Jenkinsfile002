@@ -5,10 +5,12 @@ options {
   }
     stages {
         stage('Checkout scm to a different directory inside workspace') {
-        steps {
-           checkout scm
-           }
-         }
+            steps {
+                
+                checkout scm
+                
+            }
+        }
         
 
     stages {
