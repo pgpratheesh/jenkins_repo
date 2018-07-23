@@ -1,5 +1,8 @@
+#!/usr/bin/env groovy
+ 
 pipeline {
     agent any
+
 options {
     buildDiscarder(logRotator(numToKeepStr: '3'))
   }
@@ -11,23 +14,45 @@ options {
                 
             }
         }
-        
-
-    stages {
-        stage('Run syntax check for playbook') {
+         
+            
+       stage('Run syntax check for playbook '){
             steps {
                 sh  "ansible-playbook 111.yml --syntax-check"
             }
         }
-        stage('Dry Run playbook') {
+          
+     
+      stage('Dry Run playbook '){
             steps {
                 sh  "ansible-playbook 111.yml --check "
             }
         }
-        stage('Run playbook') {
+       stage('Run playbook '){
             steps {
                 sh  "ansible-playbook 111.yml "
             }
         }
-    }
+            
+           
+   }
+      
+          
+ 
+  
+         
+post {
+        success {
+            script {
+                currentBuild.result = 'SUCCESS'
+            }
+            echo "Congratulations !!! You got the code working !!"
+        }
+ failure {
+       script {
+                currentBuild.result = 'FAILURE'
+          }
+         echo " Error !!! Please recheck your code and config"
+     }
+     }
 }
