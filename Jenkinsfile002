@@ -10,7 +10,6 @@ options {
            }
          }
         
-       }
 
     stages {
         stage('Run syntax check for playbook') {
